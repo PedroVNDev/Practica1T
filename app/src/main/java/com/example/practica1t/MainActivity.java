@@ -12,5 +12,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         System.out.println("Practica1T Daniel Salas Galán y Pedro Vicente Navas");
+        System.out.println("Probando el commit");
     }
 }
