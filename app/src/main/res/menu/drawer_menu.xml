@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_localizacion_actual"
+            android:icon="@drawable/ic_localizacionactual"
+            android:title="Ubicacion_Actual" />
+
+        <item
+            android:id="@+id/nav_guardar_ubicacion"
+            android:icon="@drawable/ic_guardarubicacion"
+            android:title="Guardar_Ubicacion" />
+
+        <item
+            android:id="@+id/nav_instalaciones_deportivas"
+            android:icon="@drawable/ic_instalacionesdeportivas"
+            android:title="Instalaciones_Deportivas" />
+
+        <item
+            android:id="@+id/nav_piscinas"
+            android:icon="@drawable/ic_piscina"
+            android:title="Piscinas" />
+
+        <item
+            android:id="@+id/nav_paginas_interes"
+            android:icon="@drawable/ic_paginasdeinteres"
+            android:title="Paginas_Interes" />
+
+        <item
+            android:id="@+id/nav_favoritos"
+            android:icon="@drawable/ic_favoritos"
+            android:title="Favoritos" />
+    </group>
+
+</menu>
