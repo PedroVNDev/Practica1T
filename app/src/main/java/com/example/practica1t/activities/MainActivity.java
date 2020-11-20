@@ -5,7 +5,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,14 +19,20 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.practica1t.R;
 import com.example.practica1t.services.GpsService;
 import com.google.android.material.navigation.NavigationView;
 
+import static com.example.practica1t.common.Constantes.INTENT_LOCALIZATION_ACTION;
+import static com.example.practica1t.common.Constantes.LATITUDE;
+import static com.example.practica1t.common.Constantes.LONGITUDE;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-
+    private double latitude;
+    private double longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,18 +56,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startService();
         }
 
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter(INTENT_LOCALIZATION_ACTION));
+
     }
 
-    public void startService() {
-        Intent mServiceIntent = new Intent(getApplicationContext(), GpsService.class);
-        startService(mServiceIntent);
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_localizacion_actual:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Ubicacion_Actual_Fragmento()).commit();
+
+
+                // AQUI HACER UN INTENT Y CREAR ACTIVITY, NO FRAGMENT, PRUEBA
+
+                Intent locationIntent = new Intent(MainActivity.this, MapaPruebaActivity.class);
+                locationIntent.putExtra(LATITUDE, latitude);
+                locationIntent.putExtra(LONGITUDE, longitude);
+                startActivity(locationIntent);
+
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Ubicacion_Actual_Fragmento()).commit();
                 Toast.makeText(this, "Estas en Ubicación Actual", Toast.LENGTH_LONG).show();
                 break;
 
@@ -83,6 +101,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            latitude = intent.getDoubleExtra(LATITUDE, 0);
+            longitude = intent.getDoubleExtra(LONGITUDE,0);
+        }
+    };
+
+    public void startService() {
+        Intent mServiceIntent = new Intent(getApplicationContext(), GpsService.class);
+        startService(mServiceIntent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getApplicationContext(), "Permiso GPS concedido", Toast.LENGTH_SHORT).show();
+                startService();
+            } else {
+                Toast.makeText(getApplicationContext(), "Permiso GPS denegado", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
