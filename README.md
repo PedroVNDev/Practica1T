@@ -13,7 +13,7 @@ con una pantalla de carga estilo whatsaap y es posible navegar a traves de las o
 ### Instalación 🔧
 
 Puedes descargar el proyecto mediante el botón CODE o clonando el repositorio con git bash
---> $ git clone https://github.com/PinguExtremo/Practica1T
+--> $ git clone https://github.com/PinguExtremo/Practica1T_Moviles
 
 
 ## Ejecución del programa ⚙️
