@@ -40,12 +40,12 @@ public class GpsService extends Service implements LocationListener {
     @SuppressLint("MissingPermission")
     private void startLocation() {
         mLocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!mLocManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+        if (!mLocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Intent callGPSSettingIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             callGPSSettingIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(callGPSSettingIntent);
         } else {
-            mLocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1, 100, this);
+            mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 100, this);
         }
     }
 
@@ -56,8 +56,8 @@ public class GpsService extends Service implements LocationListener {
         longitude = location.getLongitude();
 
         Intent intent = new Intent(INTENT_LOCALIZATION_ACTION);
-        intent.putExtra("latitud", latitude);
-        intent.putExtra("longitud", longitude);
+        intent.putExtra(LATITUDE, latitude);
+        intent.putExtra(LONGITUDE, longitude);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 

@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.example.practica1t.R;
 
+import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
@@ -15,7 +17,7 @@ import org.osmdroid.views.overlay.Marker;
 import static com.example.practica1t.common.Constantes.LATITUDE;
 import static com.example.practica1t.common.Constantes.LONGITUDE;
 
-public class MapaPruebaActivity extends AppCompatActivity {
+public class UbicacionActual extends AppCompatActivity {
     Marker marker;
     MapView mapView;
     GeoPoint geoPointMyPosition;
@@ -25,6 +27,7 @@ public class MapaPruebaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa_prueba);
+        Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 
         mapView= (MapView) findViewById(R.id.mapa);
         marker= new Marker(mapView);
@@ -34,11 +37,19 @@ public class MapaPruebaActivity extends AppCompatActivity {
 
         generateOpenStreetMapViewAndMapController();
 
-        marker.setPosition(geoPointMyPosition);
+        addMarker(geoPointMyPosition);
+    }
+
+    public void addMarker (GeoPoint center){
+        Marker marker= new Marker(mapView);
+        marker.setPosition(center);
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        mapView.getOverlays().clear();
+        mapView.getOverlays().add(marker);
+        mapView.invalidate();
     }
 
     public void generateOpenStreetMapViewAndMapController(){
-        mapView = (MapView) findViewById(R.id.mapa);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
         mMapController = (MapController) mapView.getController();

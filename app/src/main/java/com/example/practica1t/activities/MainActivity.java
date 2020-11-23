@@ -71,22 +71,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 // AQUI HACER UN INTENT Y CREAR ACTIVITY, NO FRAGMENT, PRUEBA
 
-                Intent locationIntent = new Intent(MainActivity.this, MapaPruebaActivity.class);
+                Intent locationIntent = new Intent(MainActivity.this, UbicacionActual.class);
                 locationIntent.putExtra(LATITUDE, latitude);
                 locationIntent.putExtra(LONGITUDE, longitude);
                 startActivity(locationIntent);
 
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Ubicacion_Actual_Fragmento()).commit();
                 Toast.makeText(this, "Estas en Ubicación Actual", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_guardar_ubicacion:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Guardar_Ubicacion_Fragmento()).commit();
                 Toast.makeText(this, "Estas en Guardar Ubicación", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_instalaciones_deportivas:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Instalaciones_Deportivas_Fragmento()).commit();
+                Intent intent = new Intent (MainActivity.this, InstalacionesDeportivas.class);
+                startActivity(intent);
                 Toast.makeText(this, "Estas en Instalaciones Deportivas", Toast.LENGTH_LONG).show();
                 break;
         }
