@@ -22,8 +22,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.practica1t.R;
+import com.example.practica1t.common.Location;
 import com.example.practica1t.services.GpsService;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 import static com.example.practica1t.common.Constantes.INTENT_LOCALIZATION_ACTION;
 import static com.example.practica1t.common.Constantes.LATITUDE;
@@ -33,11 +36,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private double latitude;
     private double longitude;
+    ArrayList<Location> listaLocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
+        listaLocation= new ArrayList();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -70,16 +78,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
                 // AQUI HACER UN INTENT Y CREAR ACTIVITY, NO FRAGMENT, PRUEBA
+                Location location= new Location();
+                location.setLatitude(latitude);
+                location.setAltitude(longitude);
+                listaLocation.add(location);
 
                 Intent locationIntent = new Intent(MainActivity.this, UbicacionActual.class);
                 locationIntent.putExtra(LATITUDE, latitude);
                 locationIntent.putExtra(LONGITUDE, longitude);
                 startActivity(locationIntent);
 
+
+
                 Toast.makeText(this, "Estas en Ubicación Actual", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_guardar_ubicacion:
+                Intent intent1= new Intent(MainActivity.this, GuardarUbicaciones.class);
+                intent1.putExtra("array", listaLocation);
+                startActivity(intent1);
                 Toast.makeText(this, "Estas en Guardar Ubicación", Toast.LENGTH_LONG).show();
                 break;
 

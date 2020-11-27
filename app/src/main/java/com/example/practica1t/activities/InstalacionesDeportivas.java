@@ -30,7 +30,7 @@ public class InstalacionesDeportivas extends AppCompatActivity {
         // ESTO GENERA EL MAPA
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 
-        System.out.println("sads");
+
         mapView= (MapView) findViewById(R.id.mapa);
         marker= new Marker(mapView);
 
