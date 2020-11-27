@@ -44,5 +44,3 @@ Otra opción es conectar nuestro dispositivo android y activar la depuración US
 
 * **Pedro Vicente** - *Desarrollador* - [PinguExtremo](https://github.com/PinguExtremo)
 * **Alejandro Casado** - *Desarrollador* - [janovm](https://github.com/janovm)
-* **Daniel Salas** - *Desarrollador* - [DanielSalas10](https://github.com/DanielSalas10)
-
