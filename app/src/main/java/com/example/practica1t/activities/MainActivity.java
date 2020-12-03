@@ -42,9 +42,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
         listaLocation= new ArrayList();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,8 +84,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 locationIntent.putExtra(LATITUDE, latitude);
                 locationIntent.putExtra(LONGITUDE, longitude);
                 startActivity(locationIntent);
-
-
 
                 Toast.makeText(this, "Estas en Ubicación Actual", Toast.LENGTH_LONG).show();
                 break;
