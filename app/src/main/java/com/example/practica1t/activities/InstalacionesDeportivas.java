@@ -7,12 +7,18 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.example.practica1t.R;
+import com.example.practica1t.common.Location;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+
+import java.util.ArrayList;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.practica1t.common.Constantes.LATITUDE;
 import static com.example.practica1t.common.Constantes.LONGITUDE;
@@ -22,11 +28,13 @@ public class InstalacionesDeportivas extends AppCompatActivity {
     MapView mapView;
     GeoPoint geoPointMyPosition;
     private MapController mMapController;
+    ArrayList<Location> localizaciones;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instalaciones_deportivas);
 
+        localizaciones= new ArrayList();
         // ESTO GENERA EL MAPA
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 
@@ -52,6 +60,10 @@ public class InstalacionesDeportivas extends AppCompatActivity {
         mapView.getOverlays().clear();
         mapView.getOverlays().add(marker);
         mapView.invalidate();
+    }
+
+    public void recogerLocationsDeApi(){
+
     }
 
     public void generateOpenStreetMapViewAndMapController(){
