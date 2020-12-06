@@ -5,9 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.ListView;
 
 import com.example.practica1t.R;
+import com.example.practica1t.common.AdaptadorPolideportivos;
+import com.example.practica1t.common.JsonPolideportivos;
 import com.example.practica1t.common.Location;
+import com.example.practica1t.common.Polideportivos;
+import com.example.practica1t.services.JsonService;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
@@ -17,24 +22,35 @@ import org.osmdroid.views.overlay.Marker;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.practica1t.common.Constantes.LATITUDE;
 import static com.example.practica1t.common.Constantes.LONGITUDE;
+import static com.example.practica1t.common.Constantes.URL_MADRID;
 
 public class InstalacionesDeportivas extends AppCompatActivity {
     Marker marker;
     MapView mapView;
     GeoPoint geoPointMyPosition;
     private MapController mMapController;
-    ArrayList<Location> localizaciones;
+    ArrayList<Polideportivos> localizaciones;
+    ListView listView;
+    AdaptadorPolideportivos mCentroAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_instalaciones_deportivas);
+        listView= findViewById(R.id.centrosLista);
 
         localizaciones= new ArrayList();
+        /*
         // ESTO GENERA EL MAPA
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 
@@ -50,7 +66,10 @@ public class InstalacionesDeportivas extends AppCompatActivity {
         generateOpenStreetMapViewAndMapController();
 
         //ESTO ES LO QUE GENERA EL PUNTO DE LA LOCALIZACION (PUEDES HACER VARIOS YO DIRIA QUE CON UN FOR DE ARRAY.LENGTH SI CARGAS ARRAY DE LA API NO DARA FALLO
-        addMarker(geoPointMyPosition);
+        addMarker(geoPointMyPosition);*/
+
+        getPiscinas();
+
     }
     // ESTE METODO AGREGA EL MARKER (SE LE PUEDE PONER UNA BREVE DESCIPCION SI EN LA API HAY PUEDE QUEDAR GUAPO)
     public void addMarker (GeoPoint center){
@@ -62,8 +81,44 @@ public class InstalacionesDeportivas extends AppCompatActivity {
         mapView.invalidate();
     }
 
-    public void recogerLocationsDeApi(){
 
+    public void getPiscinas() {
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(URL_MADRID)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            JsonService apiPiscinas = retrofit.create(JsonService.class);
+
+            apiPiscinas.getPolideportivoLocation(40.4167, -3.70325, 8000).enqueue(new Callback<JsonPolideportivos>() {
+
+                @Override
+                public void onResponse(Call<JsonPolideportivos> call, Response<JsonPolideportivos> response) {
+                    if (response != null && response.body() != null) {
+                        localizaciones = (ArrayList<Polideportivos>) response.body().results;
+
+                        /*
+
+
+                        mCentroAdapter = new AdaptadorPolideportivos(InstalacionesDeportivas.this, localizaciones);
+                        listView.setAdapter(mCentroAdapter);
+                        mCentroAdapter.notifyDataSetChanged();
+ */
+                        for (Polideportivos g: localizaciones){
+                            System.out.println(g.getName());
+                        }
+                        //geoPointMyPosition = new GeoPoint(40.4167,-3.70325);
+                        //addMarker(geoPointMyPosition);
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<JsonPolideportivos> call, Throwable t) {
+                    System.out.println("failure");
+                }
+            });
     }
 
     public void generateOpenStreetMapViewAndMapController(){
