@@ -12,6 +12,9 @@ import com.example.practica1t.R;
 import java.util.List;
 
 public class AdaptadorPolideportivos extends BaseAdapter {
+
+    private Double latitudes;
+    private Double longitudes;
     private Context mContext;
     private List<Polideportivos> mCentro;
 
@@ -42,7 +45,13 @@ public class AdaptadorPolideportivos extends BaseAdapter {
             v = layoutInflater.inflate(R.layout.activity_instalaciones_deportivas, null);
         }
         TextView mTextView = v.findViewById(R.id.centrosLista);
-        mTextView.setText(mCentro.get(i).getName());
+        longitudes = mCentro.get(i).getLocation().getAltitude();
+        latitudes = mCentro.get(i).getLocation().getLatitude();
+        String latitudesStr = String.valueOf(latitudes);
+        String longitudesStr = String.valueOf(longitudes);
+        mTextView.setText(mCentro.get(i).getName() + "\n");
+        mTextView.append("Latitud: " + latitudesStr + "\n");
+        mTextView.append("Longitud: " + longitudesStr);
         return v;
     }
 }
