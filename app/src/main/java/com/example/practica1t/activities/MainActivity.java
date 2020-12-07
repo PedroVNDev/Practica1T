@@ -106,6 +106,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intentPiscinas);
                 Toast.makeText(this, "Estas en Piscinas", Toast.LENGTH_LONG).show();
                 break;
+
+            case R.id.nav_paginas_interes:
+                Intent intentInteres = new Intent (MainActivity.this, PaginasInteres.class);
+                startActivity(intentInteres);
+                Toast.makeText(this, "Estas en Paginas de interes", Toast.LENGTH_LONG).show();
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);

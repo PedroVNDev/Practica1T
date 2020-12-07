@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".common.ListViewPiscinas">
-
+    tools:context=".activities.PaginasInteres">
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/listInteres"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
