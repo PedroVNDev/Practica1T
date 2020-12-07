@@ -2,14 +2,13 @@ package com.example.practica1t.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ListView;
 
 import com.example.practica1t.R;
 import com.example.practica1t.common.AdaptadorPolideportivos;
-import com.example.practica1t.common.JsonPolideportivos;
+import com.example.practica1t.Jsons.JsonPolideportivos;
 import com.example.practica1t.common.Location;
 import com.example.practica1t.common.Polideportivos;
 import com.example.practica1t.services.JsonService;
@@ -28,11 +27,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.practica1t.common.Constantes.LATITUDE;
-import static com.example.practica1t.common.Constantes.LONGITUDE;
 import static com.example.practica1t.common.Constantes.URL_MADRID;
 
-public class InstalacionesDeportivas extends AppCompatActivity {
+public class PolideportivosActivity extends AppCompatActivity {
     Marker marker;
     ArrayList<Marker> listaMarkers;
     MapView mapView;
@@ -50,7 +47,7 @@ public class InstalacionesDeportivas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_instalaciones_deportivas);
+        setContentView(R.layout.activity_polideportivos);
         //listView= findViewById(R.id.centros);
         listaMarkers= new ArrayList<Marker>();
         localizaciones= new ArrayList();
@@ -86,7 +83,7 @@ public class InstalacionesDeportivas extends AppCompatActivity {
                         localizaciones = (ArrayList<Polideportivos>) response.body().results;
 
 
-                        mCentroAdapter = new AdaptadorPolideportivos(InstalacionesDeportivas.this, localizaciones);
+                        mCentroAdapter = new AdaptadorPolideportivos(PolideportivosActivity.this, localizaciones);
                         //listView.setAdapter(mCentroAdapter);
                         mCentroAdapter.notifyDataSetChanged();
 

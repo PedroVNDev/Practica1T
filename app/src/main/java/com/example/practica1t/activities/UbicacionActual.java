@@ -56,6 +56,7 @@ public class UbicacionActual extends AppCompatActivity {
         Marker marker= new Marker(mapView);
         marker.setPosition(center);
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marker.setTitle("Tu ubicación actual");
         mapView.getOverlays().clear();
         mapView.getOverlays().add(marker);
         mapView.invalidate();
