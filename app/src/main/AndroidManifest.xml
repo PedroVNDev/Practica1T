@@ -14,8 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.PaginasInteres"></activity>
-        <activity android:name=".common.ListViewPiscinas"></activity>
+        <activity android:name=".activities.Favoritos"></activity>
+        <activity android:name=".Favoritos" />
+        <activity android:name=".activities.PaginasInteres" />
+        <activity android:name=".activities.ListViewPiscinas" />
         <activity android:name=".activities.BotonGuardarUbicaciones" />
         <activity android:name=".activities.GuardarUbicaciones" />
         <activity android:name=".activities.PolideportivosActivity" />

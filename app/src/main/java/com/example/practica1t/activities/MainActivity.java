@@ -22,7 +22,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.practica1t.R;
-import com.example.practica1t.common.ListViewPiscinas;
 import com.example.practica1t.common.Location;
 import com.example.practica1t.services.GpsService;
 import com.google.android.material.navigation.NavigationView;
@@ -111,6 +110,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intentInteres = new Intent (MainActivity.this, PaginasInteres.class);
                 startActivity(intentInteres);
                 Toast.makeText(this, "Estas en Paginas de interes", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.nav_favoritos:
+
                 break;
         }
 

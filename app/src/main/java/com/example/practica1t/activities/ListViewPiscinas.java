@@ -1,4 +1,4 @@
-package com.example.practica1t.common;
+package com.example.practica1t.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +14,9 @@ import android.widget.ListView;
 
 import com.example.practica1t.Jsons.JsonPiscinas;
 import com.example.practica1t.R;
-import com.example.practica1t.activities.PiscinasActivity;
+import com.example.practica1t.common.AdaptadorPiscinas;
+import com.example.practica1t.common.Piscinas;
 import com.example.practica1t.services.JsonService;
-
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.overlay.Marker;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
