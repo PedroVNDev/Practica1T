@@ -34,12 +34,16 @@ import static com.example.practica1t.common.Constantes.URL_MADRID;
 
 public class InstalacionesDeportivas extends AppCompatActivity {
     Marker marker;
+    ArrayList<Marker> listaMarkers;
     MapView mapView;
     GeoPoint geoPointMyPosition;
+    GeoPoint center;
     private MapController mMapController;
     ArrayList<Polideportivos> localizaciones;
     ListView listView;
     AdaptadorPolideportivos mCentroAdapter;
+    String auxiliar;
+    ArrayList<Location> locations;
 
 
     @Override
@@ -47,38 +51,21 @@ public class InstalacionesDeportivas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_instalaciones_deportivas);
-        listView= findViewById(R.id.centrosLista);
-
+        //listView= findViewById(R.id.centros);
+        listaMarkers= new ArrayList<Marker>();
         localizaciones= new ArrayList();
-        /*
         // ESTO GENERA EL MAPA
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-
+        geoPointMyPosition= new GeoPoint(40.4167,-3.70325);
 
         mapView= (MapView) findViewById(R.id.mapa);
-        marker= new Marker(mapView);
 
-        // ESTE INTENT LO USE PARA PASAR DEL MAIN A ESTA ACTIVITY LA LOCALIZACION, TU TENDRAS QUE RECIBIR ESTO DE LA API (YO HARIA OTRO METODO)
-        Intent getDataIntent = getIntent();
-        // LE HE PUESTO DEFAULT LATITUD Y ALTITUD DE MADRID PARA VER QUE CARGABA EL MAPA
-        geoPointMyPosition = new GeoPoint(getDataIntent.getDoubleExtra(LATITUDE,40.4167),getDataIntent.getDoubleExtra(LONGITUDE,-3.70325));
 
         generateOpenStreetMapViewAndMapController();
 
-        //ESTO ES LO QUE GENERA EL PUNTO DE LA LOCALIZACION (PUEDES HACER VARIOS YO DIRIA QUE CON UN FOR DE ARRAY.LENGTH SI CARGAS ARRAY DE LA API NO DARA FALLO
-        addMarker(geoPointMyPosition);*/
 
         getPiscinas();
 
-    }
-    // ESTE METODO AGREGA EL MARKER (SE LE PUEDE PONER UNA BREVE DESCIPCION SI EN LA API HAY PUEDE QUEDAR GUAPO)
-    public void addMarker (GeoPoint center){
-        Marker marker= new Marker(mapView);
-        marker.setPosition(center);
-        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        mapView.getOverlays().clear();
-        mapView.getOverlays().add(marker);
-        mapView.invalidate();
     }
 
 
@@ -91,25 +78,30 @@ public class InstalacionesDeportivas extends AppCompatActivity {
 
             JsonService apiPiscinas = retrofit.create(JsonService.class);
 
-            apiPiscinas.getPolideportivoLocation(40.4167, -3.70325, 8000).enqueue(new Callback<JsonPolideportivos>() {
+            apiPiscinas.getPolideportivoLocation(40.4167, -3.70325, 4000).enqueue(new Callback<JsonPolideportivos>() {
 
                 @Override
                 public void onResponse(Call<JsonPolideportivos> call, Response<JsonPolideportivos> response) {
                     if (response != null && response.body() != null) {
                         localizaciones = (ArrayList<Polideportivos>) response.body().results;
 
-                        /*
-
 
                         mCentroAdapter = new AdaptadorPolideportivos(InstalacionesDeportivas.this, localizaciones);
-                        listView.setAdapter(mCentroAdapter);
+                        //listView.setAdapter(mCentroAdapter);
                         mCentroAdapter.notifyDataSetChanged();
- */
-                        for (Polideportivos g: localizaciones){
-                            System.out.println(g.getName());
+
+                        for(Polideportivos p: localizaciones){
+                            center= new GeoPoint(p.getLocation().getLatitude(),p.getLocation().getAltitude());
+
+                            marker= new Marker(mapView);
+                            marker.setPosition(center);
+                            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                            marker.setTitle(p.getName());
+                            //mapView.getOverlays().clear();
+                            mapView.getOverlays().add(marker);
+                            mapView.invalidate();
                         }
-                        //geoPointMyPosition = new GeoPoint(40.4167,-3.70325);
-                        //addMarker(geoPointMyPosition);
+
                     }
 
                 }
@@ -119,6 +111,10 @@ public class InstalacionesDeportivas extends AppCompatActivity {
                     System.out.println("failure");
                 }
             });
+    }
+
+    public void addMarker (GeoPoint center){
+
     }
 
     public void generateOpenStreetMapViewAndMapController(){

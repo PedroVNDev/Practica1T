@@ -4,11 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.UbicacionActual">
 
     <org.osmdroid.views.MapView
         android:id="@+id/mapa"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></org.osmdroid.views.MapView>
+        android:layout_height="550dp"></org.osmdroid.views.MapView>
+
+    <Button
+        android:id="@+id/boton"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:text="GUARDAR ESTA UBICACION"></Button>
 
 </LinearLayout>

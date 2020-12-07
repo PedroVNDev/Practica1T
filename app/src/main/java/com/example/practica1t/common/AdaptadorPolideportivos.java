@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.practica1t.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdaptadorPolideportivos extends BaseAdapter {
@@ -17,6 +18,12 @@ public class AdaptadorPolideportivos extends BaseAdapter {
     private Double longitudes;
     private Context mContext;
     private List<Polideportivos> mCentro;
+    private List<Location> listaLocation;
+    private Location location;
+
+    public AdaptadorPolideportivos() {
+
+    }
 
     public AdaptadorPolideportivos(Context mContext, List<Polideportivos> mCentro) {
         this.mContext = mContext;
@@ -37,18 +44,24 @@ public class AdaptadorPolideportivos extends BaseAdapter {
     public long getItemId(int i) {
         return i;
     }
+    public ArrayList<Location> getArray(){
+        return (ArrayList<Location>) listaLocation;
+    }
 
     @Override
     public View getView(int i, View v, ViewGroup parent) {
         if (v == null) {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = layoutInflater.inflate(R.layout.activity_instalaciones_deportivas, null);
+            v = layoutInflater.inflate(R.layout.adaptador_deportivos, null);
         }
-        TextView mTextView = v.findViewById(R.id.centrosLista);
+        TextView mTextView = v.findViewById(R.id.centroslista);
         longitudes = mCentro.get(i).getLocation().getAltitude();
         latitudes = mCentro.get(i).getLocation().getLatitude();
         String latitudesStr = String.valueOf(latitudes);
         String longitudesStr = String.valueOf(longitudes);
+        location.setAltitude(Double.parseDouble(longitudesStr));
+        location.setLatitude(Double.parseDouble(latitudesStr));
+        listaLocation.add(location);
         mTextView.setText(mCentro.get(i).getName() + "\n");
         mTextView.append("Latitud: " + latitudesStr + "\n");
         mTextView.append("Longitud: " + longitudesStr);

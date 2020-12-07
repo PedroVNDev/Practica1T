@@ -5,11 +5,12 @@ import android.os.Parcelable;
 
 public class Location implements Parcelable {
     private double latitude;
-    private double altitude;
+    private double longitude;
+
 
     public Location(Parcel in) {
         latitude = in.readDouble();
-        altitude = in.readDouble();
+        longitude = in.readDouble();
     }
 
     public Location() {
@@ -37,11 +38,11 @@ public class Location implements Parcelable {
     }
 
     public double getAltitude() {
-        return altitude;
+        return longitude;
     }
 
     public void setAltitude(double altitude) {
-        this.altitude = altitude;
+        this.longitude = altitude;
     }
 
     @Override
@@ -52,6 +53,6 @@ public class Location implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(latitude);
-        dest.writeDouble(altitude);
+        dest.writeDouble(longitude);
     }
 }

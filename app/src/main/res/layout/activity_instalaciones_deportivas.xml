@@ -6,12 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activities.InstalacionesDeportivas">
 
-    <ListView
-        android:id="@+id/centrosLista"
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapa"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"></ListView>
-
-
+        android:layout_height="wrap_content"></org.osmdroid.views.MapView>
 
 </LinearLayout>
