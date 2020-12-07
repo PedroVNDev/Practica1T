@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.practica1t.R;
+import com.example.practica1t.common.ListViewPiscinas;
 import com.example.practica1t.common.Location;
 import com.example.practica1t.services.GpsService;
 import com.google.android.material.navigation.NavigationView;
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_piscinas:
-                Intent intentPiscinas = new Intent (MainActivity.this, PiscinasActivity.class);
+                Intent intentPiscinas = new Intent (MainActivity.this, ListViewPiscinas.class);
                 startActivity(intentPiscinas);
                 Toast.makeText(this, "Estas en Piscinas", Toast.LENGTH_LONG).show();
                 break;
