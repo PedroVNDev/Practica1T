@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activities.GuardarUbicaciones">
 
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></org.osmdroid.views.MapView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

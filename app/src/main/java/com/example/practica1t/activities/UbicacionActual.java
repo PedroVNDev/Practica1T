@@ -2,6 +2,7 @@ package com.example.practica1t.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,7 +17,9 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import static com.example.practica1t.common.Constantes.LATITUDE;
@@ -28,6 +31,9 @@ public class UbicacionActual extends AppCompatActivity {
     GeoPoint geoPointMyPosition;
     private MapController mMapController;
     Button boton;
+    OutputStreamWriter escritor;
+    Double latitude;
+    Double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +44,25 @@ public class UbicacionActual extends AppCompatActivity {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    escritor=new OutputStreamWriter(openFileOutput("pruebaFichero.txt", Context.MODE_PRIVATE));
+                    escritor.write(latitude+";"+longitude);
+                    escritor.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         mapView= (MapView) findViewById(R.id.mapa);
         marker= new Marker(mapView);
 
         Intent getDataIntent = getIntent();
-        geoPointMyPosition = new GeoPoint(getDataIntent.getDoubleExtra(LATITUDE,40.4167),getDataIntent.getDoubleExtra(LONGITUDE,-3.70325));
+        latitude= getDataIntent.getDoubleExtra(LATITUDE,0);
+        longitude=getDataIntent.getDoubleExtra(LONGITUDE,0);
+
+        geoPointMyPosition = new GeoPoint(latitude,longitude);
 
         generateOpenStreetMapViewAndMapController();
 

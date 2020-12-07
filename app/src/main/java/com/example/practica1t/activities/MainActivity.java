@@ -89,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_guardar_ubicacion:
-                Intent intent1= new Intent(MainActivity.this, GuardarUbicaciones.class);
-                intent1.putExtra("array", listaLocation);
+                Intent intent1= new Intent(MainActivity.this, BotonGuardarUbicaciones.class);
                 startActivity(intent1);
                 Toast.makeText(this, "Estas en Guardar Ubicación", Toast.LENGTH_LONG).show();
                 break;

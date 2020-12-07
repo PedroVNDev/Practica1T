@@ -111,9 +111,6 @@ public class PiscinasActivity extends AppCompatActivity {
 
     }
 
-    public void addMarker(GeoPoint center) {
-
-    }
 
     public void generateOpenStreetMapViewAndMapController() {
         // ESTO ESTA COPIADO Y PEGADO PERO HE VISTO POR INTERNET QUE HAY MIL MOVIDAS PARA PERSONALIZAR ESTO CUANDO TERMINEMOS ME MOLARIA ECHARLE UN OJO
