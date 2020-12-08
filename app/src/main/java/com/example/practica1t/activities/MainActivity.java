@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
                 // AQUI HACER UN INTENT Y CREAR ACTIVITY, NO FRAGMENT, PRUEBA
+                System.out.println();
                 Location location= new Location();
                 location.setLatitude(latitude);
                 location.setAltitude(longitude);
