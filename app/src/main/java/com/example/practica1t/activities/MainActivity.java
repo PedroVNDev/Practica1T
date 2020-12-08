@@ -114,7 +114,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_favoritos:
-
+                Intent i= new Intent(MainActivity.this, Favoritos.class);
+                startActivity(i);
                 break;
         }
 
