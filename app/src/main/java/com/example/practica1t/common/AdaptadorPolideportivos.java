@@ -59,12 +59,7 @@ public class AdaptadorPolideportivos extends BaseAdapter {
         latitudes = mCentro.get(i).getLocation().getLatitude();
         String latitudesStr = String.valueOf(latitudes);
         String longitudesStr = String.valueOf(longitudes);
-        location.setAltitude(Double.parseDouble(longitudesStr));
-        location.setLatitude(Double.parseDouble(latitudesStr));
-        listaLocation.add(location);
         mTextView.setText(mCentro.get(i).getName() + "\n");
-        mTextView.append("Latitud: " + latitudesStr + "\n");
-        mTextView.append("Longitud: " + longitudesStr);
         return v;
     }
 }

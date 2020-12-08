@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_instalaciones_deportivas:
-                Intent intent = new Intent (MainActivity.this, PolideportivosActivity.class);
+                Intent intent = new Intent (MainActivity.this, ListViewPolideportivos.class);
                 startActivity(intent);
                 Toast.makeText(this, "Estas en Instalaciones Deportivas", Toast.LENGTH_LONG).show();
                 break;
