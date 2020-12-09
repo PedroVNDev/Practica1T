@@ -19,6 +19,7 @@ import com.example.practica1t.common.Piscinas;
 import com.example.practica1t.services.JsonService;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,59 +44,59 @@ public class ListViewPiscinas extends AppCompatActivity {
     BufferedReader lector;
     String texto;
     Boolean dialogos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view_piscinas);
-        boton= findViewById(R.id.boton);
+        boton = findViewById(R.id.boton);
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(ListViewPiscinas.this, PiscinasActivity.class);
+                Intent i = new Intent(ListViewPiscinas.this, PiscinasActivity.class);
                 startActivity(i);
             }
         });
-        listView= findViewById(R.id.listView);
+        listView = findViewById(R.id.listView);
         getPiscinas();
-        crearFichero();
-        dialogos=true;
+        dialogos = true;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 leerFichero();
                 final Piscinas p = (Piscinas) listView.getItemAtPosition(position);
-                AlertDialog.Builder dialogo= new AlertDialog.Builder(ListViewPiscinas.this);
+                AlertDialog.Builder dialogo = new AlertDialog.Builder(ListViewPiscinas.this);
                 dialogo.setTitle("titulo");
-                dialogo.setMessage("DESEA AÑADIR A FAVORITOS "+ p.getName());
+                dialogo.setMessage("DESEA AÑADIR A FAVORITOS " + p.getName());
                 dialogo.setCancelable(false);
                 dialogo.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (texto==null){
+                        if (texto == null) {
                             escribirFichero(p.getLocation().getLatitude(), p.getLocation().getAltitude(), p.getName());
-                            AlertDialog.Builder dialogoNoExiste= new AlertDialog.Builder(ListViewPiscinas.this);
+                            AlertDialog.Builder dialogoNoExiste = new AlertDialog.Builder(ListViewPiscinas.this);
                             dialogoNoExiste.setMessage("FAVORITO GUARDADO");
                             dialogoNoExiste.show();
-                        }else{
-                            int index= texto.indexOf(p.getName());
+                        } else {
+                            int index = texto.indexOf(p.getName());
                             String[] palabras = p.getName().split("\\s+");
                             for (String palabra : palabras) {
                                 if (texto.contains(palabra)) {
 
-                                    dialogos=true;
-                                }else{
+                                    dialogos = true;
+                                } else {
                                     escribirFichero(p.getLocation().getLatitude(), p.getLocation().getAltitude(), p.getName());
 
-                                    dialogos=false;
+                                    dialogos = false;
                                 }
                             }
-                            if(dialogos==true){
-                                AlertDialog.Builder dialogoExiste= new AlertDialog.Builder(ListViewPiscinas.this);
+                            if (dialogos == true) {
+                                AlertDialog.Builder dialogoExiste = new AlertDialog.Builder(ListViewPiscinas.this);
                                 dialogoExiste.setMessage("YA LO GUARDASTE ANTERIORMENTE");
                                 dialogoExiste.show();
 
-                            }else if(dialogos==false){
-                                AlertDialog.Builder dialogoNoExiste= new AlertDialog.Builder(ListViewPiscinas.this);
+                            } else if (dialogos == false) {
+                                AlertDialog.Builder dialogoNoExiste = new AlertDialog.Builder(ListViewPiscinas.this);
                                 dialogoNoExiste.setMessage("FAVORITO GUARDADO");
                                 dialogoNoExiste.show();
                             }
@@ -113,10 +114,11 @@ public class ListViewPiscinas extends AppCompatActivity {
             }
         });
     }
-    public void leerFichero(){
+
+    public void leerFichero() {
         try {
-            flujo= new InputStreamReader(openFileInput("favoritos.txt"));
-            lector= new BufferedReader(flujo);
+            flujo = new InputStreamReader(openFileInput("favoritos.txt"));
+            lector = new BufferedReader(flujo);
             texto = lector.readLine();
             lector.close();
             flujo.close();
@@ -127,9 +129,10 @@ public class ListViewPiscinas extends AppCompatActivity {
         }
 
     }
-    public void crearFichero(){
+
+    public void crearFichero() {
         try {
-            escritor=new OutputStreamWriter(openFileOutput("favoritos.txt", Context.MODE_PRIVATE));
+            escritor = new OutputStreamWriter(openFileOutput("favoritos.txt", Context.MODE_PRIVATE));
             escritor.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -138,13 +141,13 @@ public class ListViewPiscinas extends AppCompatActivity {
         }
     }
 
-    public void escribirFichero(Double latitude, Double longitude, String nombre){
+    public void escribirFichero(Double latitude, Double longitude, String nombre) {
         try {
-            escritor=new OutputStreamWriter(openFileOutput("favoritos.txt", Context.MODE_PRIVATE));
-            if(texto!=null){
+            escritor = new OutputStreamWriter(openFileOutput("favoritos.txt", Context.MODE_PRIVATE));
+            if (texto != null) {
                 escritor.write(texto);
             }
-            escritor.write(nombre+" ; "+latitude+" ; "+longitude+" . ");
+            escritor.write(nombre + " ; " + latitude + " ; " + longitude + " . ");
             escritor.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -169,7 +172,7 @@ public class ListViewPiscinas extends AppCompatActivity {
                 if (response != null && response.body() != null) {
                     localizaciones = (ArrayList<Piscinas>) response.body().results;
 
-                    System.out.println("ESTO ES UN SOUT: "+ response);
+                    System.out.println("ESTO ES UN SOUT: " + response);
                     mPiscinaAdapter = new AdaptadorPiscinas(ListViewPiscinas.this, localizaciones);
                     listView.setAdapter(mPiscinaAdapter);
                     mPiscinaAdapter.notifyDataSetChanged();

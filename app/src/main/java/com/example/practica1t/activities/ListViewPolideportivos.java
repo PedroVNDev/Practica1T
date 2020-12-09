@@ -52,7 +52,6 @@ public class ListViewPolideportivos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view_polideportivos);
-
         boton = findViewById(R.id.boton);
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +62,6 @@ public class ListViewPolideportivos extends AppCompatActivity {
         });
         listView = findViewById(R.id.listView);
         getPolideportivos();
-        crearFichero();
         dialogos = true;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,7 +70,7 @@ public class ListViewPolideportivos extends AppCompatActivity {
                 final Polideportivos p = (Polideportivos) listView.getItemAtPosition(position);
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(ListViewPolideportivos.this);
                 dialogo.setTitle("titulo");
-                dialogo.setMessage("¿Quieres añadir " + p.getName() + " a la lista de favoritos?");
+                dialogo.setMessage("DESEA AÑADIR A FAVORITOS " + p.getName());
                 dialogo.setCancelable(false);
                 dialogo.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     @Override
