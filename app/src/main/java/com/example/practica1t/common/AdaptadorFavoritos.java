@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.example.practica1t.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +55,7 @@ public class AdaptadorFavoritos extends BaseAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = layoutInflater.inflate(R.layout.adapter_favoritos, null);
         }
-        TextView mTextView = v.findViewById(R.id.paginasInteres);
-        mTextView.setText(mPiscina.get(i).getName() + "\n");
+
         return v;
     }
 }

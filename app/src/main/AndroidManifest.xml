@@ -16,7 +16,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.ListViewPolideportivos"></activity>
         <activity android:name=".activities.Favoritos" />
-        <activity android:name=".Favoritos" />
         <activity android:name=".activities.PaginasInteres" />
         <activity android:name=".activities.ListViewPiscinas" />
         <activity android:name=".activities.BotonGuardarUbicaciones" />

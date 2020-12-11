@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -19,9 +21,14 @@ public class AdaptadorPiscinas extends BaseAdapter {
     private List<Piscinas> mPiscina;
     private List<Location> listaLocation;
     private Location location;
+    private int lastposition = -1;
 
     public AdaptadorPiscinas() {
 
+    }
+
+    static class ViewHolder {
+        TextView name;
     }
 
     public AdaptadorPiscinas(Context mContext, List<Piscinas> mPiscina) {
@@ -59,8 +66,26 @@ public class AdaptadorPiscinas extends BaseAdapter {
         latitudes = mPiscina.get(i).getLocation().getLatitude();
         String latitudesStr = String.valueOf(latitudes);
         String longitudesStr = String.valueOf(longitudes);
-        mTextView.setText(mPiscina.get(i).getName() + "\n");
+
+        //Para cargar la lista de manera eficiente y fluida
+        final View result;
+        AdaptadorPiscinas.ViewHolder holder;
+
+        holder = new AdaptadorPiscinas.ViewHolder();
+        holder.name = v.findViewById(R.id.centroslista);
+
+        result = v;
+        v.setTag(holder);
+
+        Animation animation = AnimationUtils.loadAnimation(mContext, (i > lastposition) ? R.anim.load_down_anim : R.anim.load_up_anim);
+        result.startAnimation(animation);
+        lastposition = i;
+
+        holder.name.setText(mPiscina.get(i).getName() + "\n");
+
+
         return v;
+
     }
 }
 

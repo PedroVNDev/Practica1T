@@ -172,7 +172,6 @@ public class ListViewPiscinas extends AppCompatActivity {
                 if (response != null && response.body() != null) {
                     localizaciones = (ArrayList<Piscinas>) response.body().results;
 
-                    System.out.println("ESTO ES UN SOUT: " + response);
                     mPiscinaAdapter = new AdaptadorPiscinas(ListViewPiscinas.this, localizaciones);
                     listView.setAdapter(mPiscinaAdapter);
                     mPiscinaAdapter.notifyDataSetChanged();
