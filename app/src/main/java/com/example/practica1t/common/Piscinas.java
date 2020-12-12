@@ -6,23 +6,13 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Piscinas implements Parcelable{
+public class Piscinas implements Parcelable {
     @SerializedName("title")
     @Expose
     private String name;
     @SerializedName("location")
     @Expose
     private Location location;
-
-    public Piscinas() {
-        this.name = name;
-        this.location = location;
-    }
-
-    public Piscinas(String name, Location location) {
-        this.name = name;
-        this.location = location;
-    }
 
     public Piscinas(Parcel in) {
         name = in.readString();

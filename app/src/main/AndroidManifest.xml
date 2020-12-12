@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -14,21 +15,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ListViewPolideportivos"></activity>
-        <activity android:name=".activities.Favoritos" />
-        <activity android:name=".activities.PaginasInteres" />
-        <activity android:name=".activities.ListViewPiscinas" />
-        <activity android:name=".activities.BotonGuardarUbicaciones" />
-        <activity android:name=".activities.GuardarUbicaciones" />
-        <activity android:name=".activities.PolideportivosActivity" />
-        <activity android:name=".activities.PiscinasActivity" />
+        <activity
+            android:name=".activities.ListViewPolideportivos"
+            android:label="Polideportivos" />
+        <activity
+            android:name=".activities.Favoritos"
+            android:label="Favoritos" />
+        <activity
+            android:name=".activities.PaginasInteres"
+            android:label="Paginas de interes" />
+        <activity
+            android:name=".activities.ListViewPiscinas"
+            android:label="Piscinas" />
+        <activity
+            android:name=".activities.BotonGuardarUbicaciones"
+            android:label="Guardar Ubicacion" />
+        <activity
+            android:name=".activities.GuardarUbicaciones"
+            android:label="Ubicacion Guardada" />
+        <activity
+            android:name=".activities.PolideportivosActivity"
+            android:label="Polideportivos a 8KM" />
+        <activity
+            android:name=".activities.PiscinasActivity"
+            android:label="Piscinas a 8KM" />
 
         <service
             android:name=".services.GpsService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activities.UbicacionActual" />
+        <activity
+            android:name=".activities.UbicacionActual"
+            android:label="Ubicacion Actual" />
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -40,6 +59,7 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
+            android:label="Deportes Madrid"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

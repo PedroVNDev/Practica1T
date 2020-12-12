@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.practica1t.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdaptadorPiscinas extends BaseAdapter {
@@ -19,13 +18,8 @@ public class AdaptadorPiscinas extends BaseAdapter {
     private Double longitudes;
     private Context mContext;
     private List<Piscinas> mPiscina;
-    private List<Location> listaLocation;
     private Location location;
     private int lastposition = -1;
-
-    public AdaptadorPiscinas() {
-
-    }
 
     static class ViewHolder {
         TextView name;
@@ -51,21 +45,14 @@ public class AdaptadorPiscinas extends BaseAdapter {
         return i;
     }
 
-    public ArrayList<Location> getArray() {
-        return (ArrayList<Location>) listaLocation;
-    }
-
     @Override
     public View getView(int i, View v, ViewGroup parent) {
         if (v == null) {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = layoutInflater.inflate(R.layout.adaptador_deportivos, null);
         }
-        TextView mTextView = v.findViewById(R.id.centroslista);
         longitudes = mPiscina.get(i).getLocation().getAltitude();
         latitudes = mPiscina.get(i).getLocation().getLatitude();
-        String latitudesStr = String.valueOf(latitudes);
-        String longitudesStr = String.valueOf(longitudes);
 
         //Para cargar la lista de manera eficiente y fluida
         final View result;
@@ -82,7 +69,6 @@ public class AdaptadorPiscinas extends BaseAdapter {
         lastposition = i;
 
         holder.name.setText(mPiscina.get(i).getName() + "\n");
-
 
         return v;
 

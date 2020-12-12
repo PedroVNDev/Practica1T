@@ -7,18 +7,10 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.practica1t.R;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdaptadorPolideportivos extends BaseAdapter {
@@ -27,13 +19,8 @@ public class AdaptadorPolideportivos extends BaseAdapter {
     private Double longitudes;
     private Context mContext;
     private List<Polideportivos> mCentro;
-    private List<Location> listaLocation;
     private Location location;
     private int lastposition = -1;
-
-    public AdaptadorPolideportivos() {
-
-    }
 
     static class ViewHolder {
         TextView name;
@@ -59,10 +46,6 @@ public class AdaptadorPolideportivos extends BaseAdapter {
         return i;
     }
 
-    public ArrayList<Location> getArray() {
-        return (ArrayList<Location>) listaLocation;
-    }
-
     @Override
     public View getView(int i, View v, ViewGroup parent) {
 
@@ -70,11 +53,8 @@ public class AdaptadorPolideportivos extends BaseAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = layoutInflater.inflate(R.layout.adaptador_deportivos, null);
         }
-        TextView mTextView = v.findViewById(R.id.centroslista);
         longitudes = mCentro.get(i).getLocation().getAltitude();
         latitudes = mCentro.get(i).getLocation().getLatitude();
-        String latitudesStr = String.valueOf(latitudes);
-        String longitudesStr = String.valueOf(longitudes);
 
         final View result;
         AdaptadorPolideportivos.ViewHolder holder;
@@ -89,9 +69,7 @@ public class AdaptadorPolideportivos extends BaseAdapter {
         result.startAnimation(animation);
         lastposition = i;
 
-
         holder.name.setText(mCentro.get(i).getName() + "\n");
-
 
         return v;
     }

@@ -67,18 +67,17 @@ public class ListViewPiscinas extends AppCompatActivity {
                 final Piscinas p = (Piscinas) listView.getItemAtPosition(position);
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(ListViewPiscinas.this);
                 dialogo.setTitle("titulo");
-                dialogo.setMessage("DESEA AÑADIR A FAVORITOS " + p.getName());
+                dialogo.setMessage("Desea añadir a Favoritos la Piscina " + p.getName());
                 dialogo.setCancelable(false);
-                dialogo.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (texto == null) {
                             escribirFichero(p.getLocation().getLatitude(), p.getLocation().getAltitude(), p.getName());
                             AlertDialog.Builder dialogoNoExiste = new AlertDialog.Builder(ListViewPiscinas.this);
-                            dialogoNoExiste.setMessage("FAVORITO GUARDADO");
+                            dialogoNoExiste.setMessage("Favorito Añadido");
                             dialogoNoExiste.show();
                         } else {
-                            int index = texto.indexOf(p.getName());
                             String[] palabras = p.getName().split("\\s+");
                             for (String palabra : palabras) {
                                 if (texto.contains(palabra)) {
@@ -92,19 +91,19 @@ public class ListViewPiscinas extends AppCompatActivity {
                             }
                             if (dialogos == true) {
                                 AlertDialog.Builder dialogoExiste = new AlertDialog.Builder(ListViewPiscinas.this);
-                                dialogoExiste.setMessage("YA LO GUARDASTE ANTERIORMENTE");
+                                dialogoExiste.setMessage("Esta piscina ya esta guardada");
                                 dialogoExiste.show();
 
                             } else if (dialogos == false) {
                                 AlertDialog.Builder dialogoNoExiste = new AlertDialog.Builder(ListViewPiscinas.this);
-                                dialogoNoExiste.setMessage("FAVORITO GUARDADO");
+                                dialogoNoExiste.setMessage("Favorito guardado");
                                 dialogoNoExiste.show();
                             }
                         }
 
                     }
                 });
-                dialogo.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -128,17 +127,6 @@ public class ListViewPiscinas extends AppCompatActivity {
             e.printStackTrace();
         }
 
-    }
-
-    public void crearFichero() {
-        try {
-            escritor = new OutputStreamWriter(openFileOutput("favoritos.txt", Context.MODE_PRIVATE));
-            escritor.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void escribirFichero(Double latitude, Double longitude, String nombre) {
@@ -182,7 +170,7 @@ public class ListViewPiscinas extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonPiscinas> call, Throwable t) {
-                System.out.println("failure");
+                System.out.println("Fallo en la Api");
             }
         });
 

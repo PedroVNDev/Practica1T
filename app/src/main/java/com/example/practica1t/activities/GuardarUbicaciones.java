@@ -42,29 +42,29 @@ public class GuardarUbicaciones extends AppCompatActivity {
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         leerFichero();
 
-        mapView= (MapView) findViewById(R.id.mapa);
-        marker= new Marker(mapView);
+        mapView = (MapView) findViewById(R.id.mapa);
+        marker = new Marker(mapView);
 
 
-        geoPointMyPosition = new GeoPoint(latitude,longitude);
+        geoPointMyPosition = new GeoPoint(latitude, longitude);
 
         generateOpenStreetMapViewAndMapController();
 
         addMarker(geoPointMyPosition);
     }
 
-    public void leerFichero(){
+    public void leerFichero() {
         try {
-            flujo= new InputStreamReader(openFileInput("pruebaFichero.txt"));
-            lector= new BufferedReader(flujo);
+            flujo = new InputStreamReader(openFileInput("pruebaFichero.txt"));
+            lector = new BufferedReader(flujo);
             String texto = lector.readLine();
             lector.close();
             flujo.close();
             String[] coords = texto.split(";");
-            String latitudet = coords[0];
-            String altitudet = coords[1];
-            latitude= Double.parseDouble(latitudet);
-            longitude= Double.parseDouble(altitudet);
+            String latitud = coords[0];
+            String altitud = coords[1];
+            latitude = Double.parseDouble(latitud);
+            longitude = Double.parseDouble(altitud);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -73,8 +73,9 @@ public class GuardarUbicaciones extends AppCompatActivity {
         }
 
     }
-    public void addMarker (GeoPoint center){
-        Marker marker= new Marker(mapView);
+
+    public void addMarker(GeoPoint center) {
+        Marker marker = new Marker(mapView);
         marker.setPosition(center);
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         marker.setTitle("Esta es la ultima ubicacion que guardaste");
@@ -83,7 +84,7 @@ public class GuardarUbicaciones extends AppCompatActivity {
         mapView.invalidate();
     }
 
-    public void generateOpenStreetMapViewAndMapController(){
+    public void generateOpenStreetMapViewAndMapController() {
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
         mMapController = (MapController) mapView.getController();

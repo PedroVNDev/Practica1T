@@ -25,7 +25,6 @@ public class PaginasInteres extends AppCompatActivity {
     private Boolean focus = true;
     private ListView listView;
     private WebView mWebView;
-    private String linkAuxiliar;
     private String[] nombres = {"Información Piscinas Madrid", "Preguntas frecuentes Piscinas Madrid", "Deportes temas de interes", "Información a usuarios de centros deportivos", "Informacion deporte COVID"};
     private String[] links = {PAGINA_INTERES_1, PAGINA_INTERES_2, PAGINA_INTERES_3, PAGINA_INTERES_4, PAGINA_INTERES_5};
 
@@ -38,7 +37,7 @@ public class PaginasInteres extends AppCompatActivity {
         listView = findViewById(R.id.listInteres);
 
 
-        final ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.adaptador_paginas_interes, R.id.paginasInteres, nombres);
+        final ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.adaptador_paginas_interes, R.id.paginasInteres, nombres);
 
         listView.setAdapter(adapter);
 
@@ -55,7 +54,6 @@ public class PaginasInteres extends AppCompatActivity {
                 mWebView.getSettings().setJavaScriptEnabled(true);
                 mWebView.getSettings().setAppCacheEnabled(true);
                 mWebView.loadUrl((String) links[position]);
-
 
             }
 

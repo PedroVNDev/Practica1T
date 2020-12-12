@@ -50,13 +50,13 @@ public class PolideportivosActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_polideportivos);
         //listView= findViewById(R.id.centros);
-        listaMarkers= new ArrayList<Marker>();
-        localizaciones= new ArrayList();
+        listaMarkers = new ArrayList<Marker>();
+        localizaciones = new ArrayList();
         // ESTO GENERA EL MAPA
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-        geoPointMyPosition= new GeoPoint(40.4167,-3.70325);
+        geoPointMyPosition = new GeoPoint(40.4167, -3.70325);
 
-        mapView= (MapView) findViewById(R.id.mapa);
+        mapView = (MapView) findViewById(R.id.mapa);
 
 
         generateOpenStreetMapViewAndMapController();
@@ -69,48 +69,48 @@ public class PolideportivosActivity extends AppCompatActivity {
 
     public void getPiscinas() {
 
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(URL_MADRID)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL_MADRID)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-            JsonService apiPiscinas = retrofit.create(JsonService.class);
+        JsonService apiPiscinas = retrofit.create(JsonService.class);
 
-            apiPiscinas.getPolideportivoLocation(40.4167, -3.70325, 4000).enqueue(new Callback<JsonPolideportivos>() {
+        apiPiscinas.getPolideportivoLocation(40.4167, -3.70325, 4000).enqueue(new Callback<JsonPolideportivos>() {
 
-                @Override
-                public void onResponse(Call<JsonPolideportivos> call, Response<JsonPolideportivos> response) {
-                    if (response != null && response.body() != null) {
-                        localizaciones = (ArrayList<Polideportivos>) response.body().results;
+            @Override
+            public void onResponse(Call<JsonPolideportivos> call, Response<JsonPolideportivos> response) {
+                if (response != null && response.body() != null) {
+                    localizaciones = (ArrayList<Polideportivos>) response.body().results;
 
 
-                        mCentroAdapter = new AdaptadorPolideportivos(PolideportivosActivity.this, localizaciones);
-                        //listView.setAdapter(mCentroAdapter);
-                        mCentroAdapter.notifyDataSetChanged();
+                    mCentroAdapter = new AdaptadorPolideportivos(PolideportivosActivity.this, localizaciones);
+                    //listView.setAdapter(mCentroAdapter);
+                    mCentroAdapter.notifyDataSetChanged();
 
-                        for(Polideportivos p: localizaciones){
-                            center= new GeoPoint(p.getLocation().getLatitude(),p.getLocation().getAltitude());
+                    for (Polideportivos p : localizaciones) {
+                        center = new GeoPoint(p.getLocation().getLatitude(), p.getLocation().getAltitude());
 
-                            marker= new Marker(mapView);
-                            marker.setPosition(center);
-                            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                            marker.setTitle(p.getName());
-                            mapView.getOverlays().add(marker);
-                            mapView.invalidate();
-                        }
-
+                        marker = new Marker(mapView);
+                        marker.setPosition(center);
+                        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                        marker.setTitle(p.getName());
+                        mapView.getOverlays().add(marker);
+                        mapView.invalidate();
                     }
 
                 }
 
-                @Override
-                public void onFailure(Call<JsonPolideportivos> call, Throwable t) {
-                    System.out.println("failure");
-                }
-            });
+            }
+
+            @Override
+            public void onFailure(Call<JsonPolideportivos> call, Throwable t) {
+                System.out.println("failure");
+            }
+        });
     }
 
-    public void generateOpenStreetMapViewAndMapController(){
+    public void generateOpenStreetMapViewAndMapController() {
         // ESTO ESTA COPIADO Y PEGADO PERO HE VISTO POR INTERNET QUE HAY MIL MOVIDAS PARA PERSONALIZAR ESTO CUANDO TERMINEMOS ME MOLARIA ECHARLE UN OJO
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);

@@ -37,12 +37,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private double latitude;
     private double longitude;
     ArrayList<Location> listaLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listaLocation= new ArrayList();
+        listaLocation = new ArrayList();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -73,10 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.nav_localizacion_actual:
 
-
-                // AQUI HACER UN INTENT Y CREAR ACTIVITY, NO FRAGMENT, PRUEBA
-                System.out.println();
-                Location location= new Location();
+                Location location = new Location();
                 location.setLatitude(latitude);
                 location.setAltitude(longitude);
                 listaLocation.add(location);
@@ -90,32 +88,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_guardar_ubicacion:
-                Intent intent1= new Intent(MainActivity.this, BotonGuardarUbicaciones.class);
-                startActivity(intent1);
+                Intent intentGuardarUbicacion = new Intent(MainActivity.this, BotonGuardarUbicaciones.class);
+                startActivity(intentGuardarUbicacion);
                 Toast.makeText(this, "Estas en Guardar Ubicación", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_instalaciones_deportivas:
-                Intent intent = new Intent (MainActivity.this, ListViewPolideportivos.class);
-                startActivity(intent);
+                Intent intentPolideportivos = new Intent(MainActivity.this, ListViewPolideportivos.class);
+                startActivity(intentPolideportivos);
                 Toast.makeText(this, "Estas en Instalaciones Deportivas", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_piscinas:
-                Intent intentPiscinas = new Intent (MainActivity.this, ListViewPiscinas.class);
+                Intent intentPiscinas = new Intent(MainActivity.this, ListViewPiscinas.class);
                 startActivity(intentPiscinas);
                 Toast.makeText(this, "Estas en Piscinas", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_paginas_interes:
-                Intent intentInteres = new Intent (MainActivity.this, PaginasInteres.class);
+                Intent intentInteres = new Intent(MainActivity.this, PaginasInteres.class);
                 startActivity(intentInteres);
                 Toast.makeText(this, "Estas en Paginas de interes", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_favoritos:
-                Intent i= new Intent(MainActivity.this, Favoritos.class);
-                startActivity(i);
+                Intent intentFavoritos = new Intent(MainActivity.this, Favoritos.class);
+                startActivity(intentFavoritos);
+                Toast.makeText(this, "Estas en Favoritos", Toast.LENGTH_LONG).show();
                 break;
         }
 
@@ -136,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public void onReceive(Context context, Intent intent) {
             latitude = intent.getDoubleExtra(LATITUDE, 0);
-            longitude = intent.getDoubleExtra(LONGITUDE,0);
+            longitude = intent.getDoubleExtra(LONGITUDE, 0);
         }
     };
 

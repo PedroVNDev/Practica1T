@@ -14,16 +14,6 @@ public class Polideportivos implements Parcelable {
     @Expose
     private Location location;
 
-    public Polideportivos(){
-        this.name = name;
-        this.location = location;
-    }
-
-    public Polideportivos(String name, Location location) {
-        this.name = name;
-        this.location = location;
-    }
-
     public Polideportivos(Parcel in) {
         name = in.readString();
         location = in.readParcelable(Location.class.getClassLoader());

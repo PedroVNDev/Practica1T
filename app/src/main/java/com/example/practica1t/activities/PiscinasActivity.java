@@ -37,10 +37,7 @@ public class PiscinasActivity extends AppCompatActivity {
     GeoPoint center;
     private MapController mMapController;
     ArrayList<Piscinas> localizaciones;
-    ListView listView;
     AdaptadorPiscinas mPiscinaAdapter;
-    String auxiliar;
-    ArrayList<Location> locations;
 
 
     @Override
@@ -48,9 +45,9 @@ public class PiscinasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_piscinas);
-        //listView= findViewById(R.id.centros);
         listaMarkers = new ArrayList<Marker>();
         localizaciones = new ArrayList();
+
         // ESTO GENERA EL MAPA
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         geoPointMyPosition = new GeoPoint(40.4167, -3.70325);
@@ -82,9 +79,7 @@ public class PiscinasActivity extends AppCompatActivity {
                 if (response != null && response.body() != null) {
                     localizaciones = (ArrayList<Piscinas>) response.body().results;
 
-
                     mPiscinaAdapter = new AdaptadorPiscinas(PiscinasActivity.this, localizaciones);
-                    //listView.setAdapter(mCentroAdapter);
                     mPiscinaAdapter.notifyDataSetChanged();
 
                     for (Piscinas p : localizaciones) {
@@ -94,7 +89,6 @@ public class PiscinasActivity extends AppCompatActivity {
                         marker.setPosition(center);
                         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                         marker.setTitle(p.getName());
-                        //mapView.getOverlays().clear();
                         mapView.getOverlays().add(marker);
                         mapView.invalidate();
                     }
@@ -113,7 +107,7 @@ public class PiscinasActivity extends AppCompatActivity {
 
 
     public void generateOpenStreetMapViewAndMapController() {
-        // ESTO ESTA COPIADO Y PEGADO PERO HE VISTO POR INTERNET QUE HAY MIL MOVIDAS PARA PERSONALIZAR ESTO CUANDO TERMINEMOS ME MOLARIA ECHARLE UN OJO
+
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
         mMapController = (MapController) mapView.getController();
