@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.practica1t.Jsons.JsonPiscinas;
 import com.example.practica1t.R;
@@ -37,15 +38,15 @@ import static com.example.practica1t.common.Constantes.DISTANCIA;
 import static com.example.practica1t.common.Constantes.URL_MADRID;
 
 public class ListViewPiscinas extends AppCompatActivity {
-    Button boton;
-    ListView listView;
-    ArrayList<Piscinas> localizaciones;
-    AdaptadorPiscinas mPiscinaAdapter;
-    OutputStreamWriter escritor;
-    InputStreamReader flujo;
-    BufferedReader lector;
-    String texto;
-    Boolean dialogos;
+    private Button boton;
+    private ListView listView;
+    private ArrayList<Piscinas> localizaciones;
+    private AdaptadorPiscinas mPiscinaAdapter;
+    private OutputStreamWriter escritor;
+    private InputStreamReader flujo;
+    private BufferedReader lector;
+    private String texto;
+    private Boolean dialogos;
     private Double latitude;
     private Double longitude;
 
@@ -61,8 +62,12 @@ public class ListViewPiscinas extends AppCompatActivity {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ListViewPiscinas.this, PiscinasActivity.class);
-                startActivity(i);
+                if (latitude == null && longitude == null) {
+                    Toast.makeText(getApplicationContext(), "No guardaste la ubicacion", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent i = new Intent(ListViewPiscinas.this, PiscinasActivity.class);
+                    startActivity(i);
+                }
             }
         });
         listView = findViewById(R.id.listView);

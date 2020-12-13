@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private double latitude;
     private double longitude;
-    ArrayList<Location> listaLocation;
+    private ArrayList<Location> listaLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

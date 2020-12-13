@@ -1,44 +1,27 @@
 package com.example.practica1t.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.practica1t.R;
-import com.example.practica1t.common.FavoritosObjeto;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class Favoritos extends AppCompatActivity {
-    ListView listView;
-    InputStreamReader flujo;
-    BufferedReader lector;
-    String texto;
-    ArrayList<String> nombres;
-    ArrayList<String> fichero;
-    int auxiliar = 0;
+    private ListView listView;
+    private InputStreamReader flujo;
+    private BufferedReader lector;
+    private String texto;
+    private ArrayList<String> nombres;
+    private ArrayList<String> fichero;
+    private int auxiliar = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

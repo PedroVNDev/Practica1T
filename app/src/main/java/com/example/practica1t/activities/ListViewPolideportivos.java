@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.practica1t.Jsons.JsonPiscinas;
 import com.example.practica1t.Jsons.JsonPolideportivos;
@@ -40,15 +41,15 @@ import static com.example.practica1t.common.Constantes.URL_MADRID;
 
 public class ListViewPolideportivos extends AppCompatActivity {
 
-    Button boton;
-    ListView listView;
-    ArrayList<Polideportivos> localizaciones;
-    AdaptadorPolideportivos mPolideportivosAdapter;
-    OutputStreamWriter escritor;
-    InputStreamReader flujo;
-    BufferedReader lector;
-    String texto;
-    Boolean dialogos;
+    private  Button boton;
+    private  ListView listView;
+    private ArrayList<Polideportivos> localizaciones;
+    private AdaptadorPolideportivos mPolideportivosAdapter;
+    private OutputStreamWriter escritor;
+    private InputStreamReader flujo;
+    private BufferedReader lector;
+    private String texto;
+    private  Boolean dialogos;
     private Double latitude;
     private Double longitude;
 
@@ -63,8 +64,12 @@ public class ListViewPolideportivos extends AppCompatActivity {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ListViewPolideportivos.this, PolideportivosActivity.class);
-                startActivity(i);
+                if (latitude == null && longitude == null) {
+                    Toast.makeText(getApplicationContext(), "No guardaste la ubicacion", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent i = new Intent(ListViewPolideportivos.this, PolideportivosActivity.class);
+                    startActivity(i);
+                }
             }
         });
         listView = findViewById(R.id.listView);

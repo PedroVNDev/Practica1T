@@ -35,14 +35,14 @@ import static com.example.practica1t.common.Constantes.DISTANCIA;
 import static com.example.practica1t.common.Constantes.URL_MADRID;
 
 public class PiscinasActivity extends AppCompatActivity {
-    Marker marker;
-    ArrayList<Marker> listaMarkers;
-    MapView mapView;
-    GeoPoint geoPointMyPosition;
-    GeoPoint center;
+    private Marker marker;
+    private ArrayList<Marker> listaMarkers;
+    private MapView mapView;
+    private GeoPoint geoPointMyPosition;
+    private GeoPoint center;
     private MapController mMapController;
-    ArrayList<Piscinas> localizaciones;
-    AdaptadorPiscinas mPiscinaAdapter;
+    private ArrayList<Piscinas> localizaciones;
+    private AdaptadorPiscinas mPiscinaAdapter;
     private Double latitude;
     private Double longitude;
     private InputStreamReader flujo;

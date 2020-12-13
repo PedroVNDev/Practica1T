@@ -19,8 +19,8 @@ import static com.example.practica1t.common.Constantes.LONGITUDE;
 
 public class GpsService extends Service implements LocationListener {
     private LocationManager mLocManager = null;
-    Double latitude = 0.0;
-    Double longitude = 0.0;
+    private Double latitude = 0.0;
+    private Double longitude = 0.0;
 
     @Override
     public IBinder onBind(Intent intent) {

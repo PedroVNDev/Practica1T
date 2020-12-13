@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class BotonGuardarUbicaciones extends AppCompatActivity {
-    Button botoncete;
+    private Button botoncete;
     private double latitude;
     private double longitude;
     private InputStreamReader flujo;

@@ -26,11 +26,11 @@ import static com.example.practica1t.common.Constantes.LATITUDE;
 import static com.example.practica1t.common.Constantes.LONGITUDE;
 
 public class GuardarUbicaciones extends AppCompatActivity {
-    InputStreamReader flujo;
-    BufferedReader lector;
-    MapView mapView;
-    Marker marker;
-    GeoPoint geoPointMyPosition;
+    private InputStreamReader flujo;
+    private BufferedReader lector;
+    private  MapView mapView;
+    private Marker marker;
+    private GeoPoint geoPointMyPosition;
     private Double latitude;
     private Double longitude;
     private MapController mMapController;

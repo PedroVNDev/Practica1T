@@ -27,14 +27,14 @@ import static com.example.practica1t.common.Constantes.LATITUDE;
 import static com.example.practica1t.common.Constantes.LONGITUDE;
 
 public class UbicacionActual extends AppCompatActivity {
-    Marker marker;
-    MapView mapView;
-    GeoPoint geoPointMyPosition;
+    private Marker marker;
+    private MapView mapView;
+    private GeoPoint geoPointMyPosition;
     private MapController mMapController;
-    Button boton;
-    OutputStreamWriter escritor;
-    Double latitude;
-    Double longitude;
+    private Button boton;
+    private OutputStreamWriter escritor;
+    private Double latitude;
+    private Double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
