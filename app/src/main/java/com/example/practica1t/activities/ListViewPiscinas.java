@@ -81,7 +81,7 @@ public class ListViewPiscinas extends AppCompatActivity {
 
                 final Piscinas p = (Piscinas) listView.getItemAtPosition(position);
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(ListViewPiscinas.this);
-                dialogo.setTitle("titulo");
+                dialogo.setTitle("Guardar en Favoritos");
                 dialogo.setMessage("Desea añadir a Favoritos la Piscina " + p.getName());
                 dialogo.setCancelable(false);
                 dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {

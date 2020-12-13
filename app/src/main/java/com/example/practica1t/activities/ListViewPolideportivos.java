@@ -81,7 +81,7 @@ public class ListViewPolideportivos extends AppCompatActivity {
                 leerFichero();
                 final Polideportivos p = (Polideportivos) listView.getItemAtPosition(position);
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(ListViewPolideportivos.this);
-                dialogo.setTitle("titulo");
+                dialogo.setTitle("Guardar en Favoritos");
                 dialogo.setMessage("Desea añadir a favoritos el polideportivo " + p.getName());
                 dialogo.setCancelable(false);
                 dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
