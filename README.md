@@ -11,7 +11,7 @@ Aplicación movil para android que muestra nuestra ubicación actual y mediante 
 ### Instalación 🔧
 
 Puedes descargar el proyecto mediante el botón CODE o clonando el repositorio con git bash
---> $ git clone https://github.com/PinguExtremo/Practica1T_Moviles
+--> $ git clone https://github.com/PinguExtremo/Practica1T
 
 
 ## Ejecución del programa ⚙️
