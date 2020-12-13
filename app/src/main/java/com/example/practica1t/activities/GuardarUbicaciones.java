@@ -31,8 +31,8 @@ public class GuardarUbicaciones extends AppCompatActivity {
     MapView mapView;
     Marker marker;
     GeoPoint geoPointMyPosition;
-    Double latitude;
-    Double longitude;
+    private Double latitude;
+    private Double longitude;
     private MapController mMapController;
 
     @Override
@@ -45,17 +45,14 @@ public class GuardarUbicaciones extends AppCompatActivity {
         mapView = (MapView) findViewById(R.id.mapa);
         marker = new Marker(mapView);
 
-
         geoPointMyPosition = new GeoPoint(latitude, longitude);
-
         generateOpenStreetMapViewAndMapController();
-
         addMarker(geoPointMyPosition);
     }
 
     public void leerFichero() {
         try {
-            flujo = new InputStreamReader(openFileInput("pruebaFichero.txt"));
+            flujo = new InputStreamReader(openFileInput("UbicacionGuardada.txt"));
             lector = new BufferedReader(flujo);
             String texto = lector.readLine();
             lector.close();

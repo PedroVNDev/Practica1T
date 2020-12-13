@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.practica1t.Jsons.JsonPiscinas;
 import com.example.practica1t.R;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.practica1t.common.Constantes.DISTANCIA;
 import static com.example.practica1t.common.Constantes.URL_MADRID;
 
 public class ListViewPiscinas extends AppCompatActivity {
@@ -44,11 +46,17 @@ public class ListViewPiscinas extends AppCompatActivity {
     BufferedReader lector;
     String texto;
     Boolean dialogos;
+    private Double latitude;
+    private Double longitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view_piscinas);
+
+        leerFicheroLocalizacion();
+
         boton = findViewById(R.id.boton);
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,11 +67,13 @@ public class ListViewPiscinas extends AppCompatActivity {
         });
         listView = findViewById(R.id.listView);
         getPiscinas();
+
         dialogos = true;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 leerFichero();
+
                 final Piscinas p = (Piscinas) listView.getItemAtPosition(position);
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(ListViewPiscinas.this);
                 dialogo.setTitle("titulo");
@@ -110,8 +120,31 @@ public class ListViewPiscinas extends AppCompatActivity {
                     }
                 });
                 dialogo.show();
+
+
             }
         });
+    }
+
+    public void leerFicheroLocalizacion() {
+        try {
+            flujo = new InputStreamReader(openFileInput("UbicacionGuardada.txt"));
+            lector = new BufferedReader(flujo);
+            String texto = lector.readLine();
+            lector.close();
+            flujo.close();
+            String[] coords = texto.split(";");
+            String latitud = coords[0];
+            String longitud = coords[1];
+            latitude = Double.parseDouble(latitud);
+            longitude = Double.parseDouble(longitud);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void leerFichero() {
@@ -153,7 +186,7 @@ public class ListViewPiscinas extends AppCompatActivity {
 
         JsonService apiPiscinas = retrofit.create(JsonService.class);
 
-        apiPiscinas.getPiscinaLocation(40.4167, -3.70325, 4000).enqueue(new Callback<JsonPiscinas>() {
+        apiPiscinas.getPiscinaLocation(latitude, longitude, DISTANCIA).enqueue(new Callback<JsonPiscinas>() {
 
             @Override
             public void onResponse(Call<JsonPiscinas> call, Response<JsonPiscinas> response) {
@@ -163,6 +196,14 @@ public class ListViewPiscinas extends AppCompatActivity {
                     mPiscinaAdapter = new AdaptadorPiscinas(ListViewPiscinas.this, localizaciones);
                     listView.setAdapter(mPiscinaAdapter);
                     mPiscinaAdapter.notifyDataSetChanged();
+
+                    TextView textView = findViewById(R.id.textView);
+
+                    if (listView.getCount() != 0) {
+                        textView.setText("Pulse para añadir a favoritos");
+                    } else {
+
+                    }
 
                 }
 

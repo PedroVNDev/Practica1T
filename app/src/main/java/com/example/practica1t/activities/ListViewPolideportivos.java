@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.practica1t.Jsons.JsonPiscinas;
 import com.example.practica1t.Jsons.JsonPolideportivos;
@@ -34,6 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.practica1t.common.Constantes.DISTANCIA;
 import static com.example.practica1t.common.Constantes.URL_MADRID;
 
 public class ListViewPolideportivos extends AppCompatActivity {
@@ -47,11 +49,16 @@ public class ListViewPolideportivos extends AppCompatActivity {
     BufferedReader lector;
     String texto;
     Boolean dialogos;
+    private Double latitude;
+    private Double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view_polideportivos);
+
+        leerFicheroLocalizacion();
+
         boton = findViewById(R.id.boton);
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +124,27 @@ public class ListViewPolideportivos extends AppCompatActivity {
         });
     }
 
+    public void leerFicheroLocalizacion() {
+        try {
+            flujo = new InputStreamReader(openFileInput("UbicacionGuardada.txt"));
+            lector = new BufferedReader(flujo);
+            String texto = lector.readLine();
+            lector.close();
+            flujo.close();
+            String[] coords = texto.split(";");
+            String latitud = coords[0];
+            String longitud = coords[1];
+            latitude = Double.parseDouble(latitud);
+            longitude = Double.parseDouble(longitud);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void leerFichero() {
         try {
             flujo = new InputStreamReader(openFileInput("favoritos.txt"));
@@ -156,7 +184,7 @@ public class ListViewPolideportivos extends AppCompatActivity {
 
         JsonService apiPolideportivos = retrofit.create(JsonService.class);
 
-        apiPolideportivos.getPolideportivoLocation(40.4167, -3.70325, 4000).enqueue(new Callback<JsonPolideportivos>() {
+        apiPolideportivos.getPolideportivoLocation(latitude, longitude, DISTANCIA).enqueue(new Callback<JsonPolideportivos>() {
 
             @Override
             public void onResponse(Call<JsonPolideportivos> call, Response<JsonPolideportivos> response) {
@@ -166,6 +194,14 @@ public class ListViewPolideportivos extends AppCompatActivity {
                     mPolideportivosAdapter = new AdaptadorPolideportivos(ListViewPolideportivos.this, localizaciones);
                     listView.setAdapter(mPolideportivosAdapter);
                     mPolideportivosAdapter.notifyDataSetChanged();
+
+                    TextView textView = findViewById(R.id.textView);
+
+                    if (listView.getCount() != 0) {
+                        textView.setText("Pulse para añadir a favoritos");
+                    } else {
+
+                    }
 
                 }
 

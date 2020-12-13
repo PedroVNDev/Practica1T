@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter(INTENT_LOCALIZATION_ACTION));
 
+
     }
 
 
@@ -84,37 +85,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 locationIntent.putExtra(LONGITUDE, longitude);
                 startActivity(locationIntent);
 
-                Toast.makeText(this, "Estas en Ubicación Actual", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Estas en Ubicación Actual", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.nav_guardar_ubicacion:
                 Intent intentGuardarUbicacion = new Intent(MainActivity.this, BotonGuardarUbicaciones.class);
                 startActivity(intentGuardarUbicacion);
-                Toast.makeText(this, "Estas en Guardar Ubicación", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Estas en Guardar Ubicación", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.nav_instalaciones_deportivas:
                 Intent intentPolideportivos = new Intent(MainActivity.this, ListViewPolideportivos.class);
                 startActivity(intentPolideportivos);
-                Toast.makeText(this, "Estas en Instalaciones Deportivas", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Estas en Instalaciones Deportivas", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.nav_piscinas:
                 Intent intentPiscinas = new Intent(MainActivity.this, ListViewPiscinas.class);
                 startActivity(intentPiscinas);
-                Toast.makeText(this, "Estas en Piscinas", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Estas en Piscinas", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.nav_paginas_interes:
                 Intent intentInteres = new Intent(MainActivity.this, PaginasInteres.class);
                 startActivity(intentInteres);
-                Toast.makeText(this, "Estas en Paginas de interes", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Estas en Paginas de interes", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.nav_favoritos:
                 Intent intentFavoritos = new Intent(MainActivity.this, Favoritos.class);
                 startActivity(intentFavoritos);
-                Toast.makeText(this, "Estas en Favoritos", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Estas en Favoritos", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(getApplicationContext(), "Permiso GPS concedido", Toast.LENGTH_SHORT).show();
                 startService();
             } else {
-                Toast.makeText(getApplicationContext(), "Permiso GPS denegado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Permiso GPS denegado debido a esto la aplicación puede funcionar incorrectamente porfavor reinicia para aplicar permisos de GPS", Toast.LENGTH_LONG).show();
             }
         }
     }

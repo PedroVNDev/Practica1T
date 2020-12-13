@@ -20,6 +20,10 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -28,6 +32,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.practica1t.common.Constantes.DISTANCIA;
 import static com.example.practica1t.common.Constantes.URL_MADRID;
 
 public class PolideportivosActivity extends AppCompatActivity {
@@ -38,23 +43,25 @@ public class PolideportivosActivity extends AppCompatActivity {
     GeoPoint center;
     private MapController mMapController;
     ArrayList<Polideportivos> localizaciones;
-    ListView listView;
     AdaptadorPolideportivos mCentroAdapter;
-    String auxiliar;
-    ArrayList<Location> locations;
+    private Double latitude;
+    private Double longitude;
+    private InputStreamReader flujo;
+    private BufferedReader lector;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_polideportivos);
-        //listView= findViewById(R.id.centros);
-        listaMarkers = new ArrayList<Marker>();
+
+        leerFichero();
+        listaMarkers = new ArrayList<>();
         localizaciones = new ArrayList();
+
         // ESTO GENERA EL MAPA
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-        geoPointMyPosition = new GeoPoint(40.4167, -3.70325);
+        geoPointMyPosition = new GeoPoint(latitude, longitude);
 
         mapView = (MapView) findViewById(R.id.mapa);
 
@@ -76,7 +83,7 @@ public class PolideportivosActivity extends AppCompatActivity {
 
         JsonService apiPiscinas = retrofit.create(JsonService.class);
 
-        apiPiscinas.getPolideportivoLocation(40.4167, -3.70325, 4000).enqueue(new Callback<JsonPolideportivos>() {
+        apiPiscinas.getPolideportivoLocation(latitude, longitude, DISTANCIA).enqueue(new Callback<JsonPolideportivos>() {
 
             @Override
             public void onResponse(Call<JsonPolideportivos> call, Response<JsonPolideportivos> response) {
@@ -108,6 +115,27 @@ public class PolideportivosActivity extends AppCompatActivity {
                 System.out.println("failure");
             }
         });
+    }
+
+    public void leerFichero() {
+        try {
+            flujo = new InputStreamReader(openFileInput("UbicacionGuardada.txt"));
+            lector = new BufferedReader(flujo);
+            String texto = lector.readLine();
+            lector.close();
+            flujo.close();
+            String[] coords = texto.split(";");
+            String latitud = coords[0];
+            String longitud = coords[1];
+            latitude = Double.parseDouble(latitud);
+            longitude = Double.parseDouble(longitud);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void generateOpenStreetMapViewAndMapController() {

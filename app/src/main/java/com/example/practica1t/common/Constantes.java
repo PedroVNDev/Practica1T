@@ -3,6 +3,7 @@ package com.example.practica1t.common;
 public class Constantes {
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
+    public static final int DISTANCIA = 8000;
     public static final String INTENT_LOCALIZATION_ACTION = "location-event-position";
 
     public static final String URL_MADRID = "https://datos.madrid.es/egob/";

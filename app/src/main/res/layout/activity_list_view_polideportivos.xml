@@ -26,11 +26,11 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="419dp"
-        android:layout_height="25dp"
+        android:layout_width="417dp"
+        android:layout_height="62dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="80dp"
-        android:text="PULSE PARA AÑADIR A FAVORITOS"
+        android:text="No guardaste la ubicacion o estas muy lejos de un polideportivo"
         android:textAlignment="center"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
